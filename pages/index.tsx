@@ -17,6 +17,9 @@ export default function Index({ allPosts: { edges }, preview }) {
         <title>{CMS_NAME}</title>
       </Head>
       <Container>
+      <h1 className="mb-8 text-6xl md:text-7xl font-bold tracking-tighter leading-tight">
+      {CMS_NAME}
+      </h1>
         {morePosts.length > 0 && <MoreStories posts={morePosts} />}
       </Container>
     </Layout>
