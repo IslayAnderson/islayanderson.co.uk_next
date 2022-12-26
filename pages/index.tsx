@@ -14,11 +14,11 @@ export default function Index({ allPosts: { edges }, preview }) {
   return (
     <Layout preview={preview}>
       <Head>
-        <title>{CMS_NAME}</title>
+        <title>Islay Anderson | FullStack | Liverpool</title>
       </Head>
       <Container>
       <h1 className="mb-8 text-6xl md:text-7xl font-bold tracking-tighter leading-tight">
-      {CMS_NAME}
+      Islay Anderson | FullStack | Liverpool
       </h1>
         {morePosts.length > 0 && <MoreStories posts={morePosts} />}
       </Container>
