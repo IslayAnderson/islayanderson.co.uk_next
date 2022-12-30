@@ -2,8 +2,9 @@ import PostPreview from './post-preview'
 
 export default function MoreStories({ posts }) {
   return (
-    <section>
-      <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-16 lg:gap-x-32 gap-y-20 md:gap-y-32 mb-32">
+    <div className='col-12 col-md-7 col-12 col-md-7 '>
+      <div className="row ielm">
+        <h3 className='text-3xl'>Recent</h3>
         {posts.map(({ node }) => (
           <PostPreview
             key={node.slug}
@@ -16,6 +17,6 @@ export default function MoreStories({ posts }) {
           />
         ))}
       </div>
-    </section>
+      </div>
   )
 }

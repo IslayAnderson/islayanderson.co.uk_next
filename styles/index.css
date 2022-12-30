@@ -14,6 +14,36 @@
 
 /* Your own custom utilities */
 
+/* base */
+:root{
+  --dark1:#1e1e1e;
+  --dark2:#252526;
+  --dark3:#2d2d30;
+  --dark4:#3e3e42;
+  --blue:#007acc;
+  --radius: 15px;
+}
+body {
+	background-color: var(--dark1);
+  color: #fff;
+}
+
+body p, body h1, body h2, body h3, body h4, body h5, body h6 {
+	color: #fff;
+}
+time{
+  color:var(--blue)
+}
+
+
+/* ielm */
+.ielm{
+  background-color: var(--dark4);
+  border-radius: var(--radius);
+  padding:10px;
+  margin: 20px 0;
+}
+
 .has-text-align-left {
   @apply text-left;
 }
