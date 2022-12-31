@@ -59,11 +59,61 @@ export async function getAllPostsWithSlug() {
   return data?.posts
 }
 
+export async function getTopics(preview) {
+  const data = await fetchAPI(
+    `
+    query AllTopics {
+      categories(first: 100) {
+        edges {
+          node {
+            name
+            slug
+          }
+        }
+      }
+    }
+  `,
+    {
+      variables: {
+        onlyEnabled: !preview,
+        preview,
+      },
+    }
+  )
+
+  return data?.categories
+}
+
+export async function getTags(preview) {
+  const data = await fetchAPI(
+    `
+    query AllTopics {
+      tags(first: 100) {
+        edges {
+          node {
+            name
+            slug
+          }
+        }
+      }
+    }
+  `,
+    {
+      variables: {
+        onlyEnabled: !preview,
+        preview,
+      },
+    }
+  )
+
+  return data?.tags
+}
+
 export async function getAllPostsForHome(preview) {
   const data = await fetchAPI(
     `
     query AllPosts {
-      posts(first: 10, where: { orderby: { field: DATE, order: DESC } }) {
+      posts(first: 6, where: { orderby: { field: DATE, order: DESC } }) {
         edges {
           node {
             title
@@ -83,6 +133,38 @@ export async function getAllPostsForHome(preview) {
                 avatar {
                   url
                 }
+              }
+            }
+          }
+        }
+      }
+    }
+  `,
+    {
+      variables: {
+        onlyEnabled: !preview,
+        preview,
+      },
+    }
+  )
+
+  return data?.posts
+}
+
+export async function getFeaturedPosts(preview) {
+  const data = await fetchAPI(
+    `
+    query AllPosts {
+      posts(where: {categoryName: "Featured"}) {
+        edges {
+          node {
+            title
+            excerpt
+            slug
+            date
+            featuredImage {
+              node {
+                sourceUrl
               }
             }
           }

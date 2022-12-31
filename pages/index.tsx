@@ -2,18 +2,21 @@ import Head from 'next/head'
 import { GetStaticProps } from 'next'
 import Container from '../components/container'
 import MoreStories from '../components/more-stories'
-import HeroPost from '../components/hero-post'
+import FeaturedPost from '../components/featuredPost'
 import Avatar from '../components/avatar'
 import Image from 'next/image'
 
 import Layout from '../components/layout'
-import { getAllPostsForHome } from '../lib/api'
+import { getAllPostsForHome, getFeaturedPosts, getTopics } from '../lib/api'
 import { CMS_NAME } from '../lib/constants'
+import Topics from '../components/topics'
 //import base from '../styles/base.scss'
 
-export default function Index({ allPosts: { edges }, preview }) {
-  const heroPost = edges[0]?.node
-  const morePosts = edges.slice(1)
+export default function Index({ allPosts, allTopics, featuredPosts, preview }) {
+  const morePosts = allPosts.edges
+  const topics = allTopics.edges
+  const allFeatured = featuredPosts.edges[0].node
+  console.log("featured:",allFeatured)
 
   return (
     <Layout preview={preview}>
@@ -46,6 +49,8 @@ export default function Index({ allPosts: { edges }, preview }) {
           <div className='ielm'>
             <p>placeholder object</p>
           </div>
+          <Topics topics={topics} col />
+          <FeaturedPost title={allFeatured.title} date={allFeatured.date} excerpt={allFeatured.excerpt} slug={allFeatured.slug} />
         </div>
         {morePosts.length > 0 && <MoreStories posts={morePosts} />}
         </div>
@@ -55,10 +60,12 @@ export default function Index({ allPosts: { edges }, preview }) {
 }
 
 export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
-  const allPosts = await getAllPostsForHome(preview)
+  let allPosts = await getAllPostsForHome(preview);
+  let allTopics = await getTopics(preview);
+  let featuredPosts = await getFeaturedPosts(preview);
 
   return {
-    props: { allPosts, preview },
+    props: { allPosts, allTopics, featuredPosts, preview },
     revalidate: 10,
   }
 }
