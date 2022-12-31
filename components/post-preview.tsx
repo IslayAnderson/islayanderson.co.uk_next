@@ -14,11 +14,6 @@ export default function PostPreview({
   if(excerpt.length > 0){
     return (
       <div className='col col-12 ml-3'>
-        <div data-author={`${author.node.avatar.url}`} className="">
-          {coverImage && (
-            <CoverImage title={title} coverImage={coverImage} slug={slug} />
-          )}
-        </div>
         <h3 className="text-2xl leading-snug">
           <Link
             href={`/posts/${slug}`}
