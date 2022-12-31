@@ -4,10 +4,8 @@ import Link from 'next/link'
 
 export default function FeaturedPost({
   title,
-  coverImage,
   date,
   excerpt,
-  author,
   slug,
 }) {
   return (
