@@ -47,7 +47,7 @@ export default function Index({ allPosts, allTopics, featuredPosts, preview }) {
       <div className='row d-flex flex-row align-items-start'>
         <div className='col-12 col-md-5'>
           <div className='ielm'>
-            <p>placeholder object</p>
+            <p><a href="http://www2.islayanderson.co.uk">My potfolio</a> as <a href="https://www.w3.org/People/Berners-Lee/">Tim Berners-Lee</a> Intended</p>
           </div>
           <Topics topics={topics} col />
           <FeaturedPost title={allFeatured.title} date={allFeatured.date} excerpt={allFeatured.excerpt} slug={allFeatured.slug} />
