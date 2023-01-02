@@ -109,6 +109,48 @@ export async function getTags(preview) {
   return data?.tags
 }
 
+export async function getAllPosts(preview) {
+  const data = await fetchAPI(
+    `
+    query AllPosts {
+      posts(where: { orderby: { field: DATE, order: DESC } }) {
+        edges {
+          node {
+            title
+            excerpt
+            slug
+            date
+            featuredImage {
+              node {
+                sourceUrl
+              }
+            }
+            author {
+              node {
+                name
+                firstName
+                lastName
+                avatar {
+                  url
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  `,
+    {
+      variables: {
+        onlyEnabled: !preview,
+        preview,
+      },
+    }
+  )
+
+  return data?.posts
+}
+
 export async function getAllPostsForHome(preview) {
   const data = await fetchAPI(
     `

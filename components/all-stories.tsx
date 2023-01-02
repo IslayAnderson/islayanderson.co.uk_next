@@ -1,10 +1,10 @@
 import PostPreview from './post-preview'
 
-export default function MoreStories({ posts }) {
+export default function AllStories({ posts }) {
   return (
-    <div className='col-12 col-md-7 col-12 col-md-7 '>
+    <div className='col-12'>
       <div className="row ielm">
-        <h3 className='text-3xl'><a href="/posts">Recent</a></h3>
+        <h3 className='text-3xl'>All Posts</h3>
         {posts.map(({ node }) => (
           <PostPreview
             key={node.slug}
