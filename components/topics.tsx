@@ -6,7 +6,7 @@ export default function Topics({ topics, col }) {
         <h3 className='text-3xl'>Topics</h3>
         <ul className="mx-5 list-group">
         {topics.map(({ node }) => (
-          <li className="">{node.name}</li>
+          <li className=""><a href={`/topics/${node.name}`}>{node.name}</a></li>
         ))}
         </ul>
       </div>

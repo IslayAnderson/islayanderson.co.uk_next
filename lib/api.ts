@@ -151,6 +151,50 @@ export async function getAllPostsForHome(preview) {
   return data?.posts
 }
 
+
+
+export async function getAllPostsWithTopic(topic, preview) {
+  const data = await fetchAPI(
+    `
+    query AllPosts {
+      posts(where: {categoryName: "`+topic+`"}) {
+        edges {
+          node {
+            title
+            excerpt
+            slug
+            date
+            featuredImage {
+              node {
+                sourceUrl
+              }
+            }
+            author {
+              node {
+                name
+                firstName
+                lastName
+                avatar {
+                  url
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  `,
+    {
+      variables: {
+        onlyEnabled: !preview,
+        preview,
+      },
+    }
+  )
+
+  return data?.posts
+}
+
 export async function getFeaturedPosts(preview) {
   const data = await fetchAPI(
     `

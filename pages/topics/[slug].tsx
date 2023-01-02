@@ -11,12 +11,17 @@ import SectionSeparator from '../../components/section-separator'
 import Layout from '../../components/layout'
 import PostTitle from '../../components/post-title'
 import Tags from '../../components/tags'
-import { getAllPostsWithSlug, getPostAndMorePosts } from '../../lib/api'
+import TopicPosts from '../../components/topicPosts'
+import { getAllPostsWithTopic, getAllPostsWithSlug, getPostAndMorePosts, getTopics } from '../../lib/api'
 import { CMS_NAME } from '../../lib/constants'
 
 export default function Post({ post, posts, preview }) {
   const router = useRouter()
-  const morePosts = posts?.edges
+  const AllPosts = posts?.edges
+
+  console.log("posts:",AllPosts)
+  const morePosts = AllPosts
+  const allPosts = AllPosts
 
   if (!router.isFallback && !post?.slug) {
     return <ErrorPage statusCode={404} />
@@ -30,29 +35,7 @@ export default function Post({ post, posts, preview }) {
           <PostTitle>Loading…</PostTitle>
         ) : (
           <>
-            <article>
-              <Head>
-                <title>
-                  Islay Anderson blog - {post.title}
-                </title>
-                <meta
-                  property="og:image"
-                  content={post.featuredImage?.node.sourceUrl}
-                />
-              </Head>
-              <PostHeader
-                title={post.title}
-                coverImage={post.featuredImage}
-                date={post.date}
-                author={post.author}
-                categories={post.categories}
-              />
-              <PostBody content={post.content} />
-              <footer>
-                {post.tags.edges.length > 0 && <Tags tags={post.tags} />}
-              </footer>
-            </article>
-
+            {allPosts.length > 0 && <TopicPosts posts={allPosts} />}
             <SectionSeparator />
             {morePosts.length > 0 && <MoreStories posts={morePosts} />}
           </>
@@ -68,22 +51,27 @@ export const getStaticProps: GetStaticProps = async ({
   previewData,
 }) => {
   const data = await getPostAndMorePosts(params?.slug, preview, previewData)
+  
+  const allPosts = await getAllPostsWithTopic(params.slug, preview)
+
+  console.log("gsp-posts:",[data.posts, allPosts.posts])
 
   return {
     props: {
       preview,
       post: data.post,
-      posts: data.posts,
+      posts:data.posts, 
+      allPosts:allPosts.posts,
     },
     revalidate: 10,
   }
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const allPosts = await getAllPostsWithSlug()
+  const allPosts = await getTopics(true)
 
   return {
-    paths: allPosts.edges.map(({ node }) => `/posts/${node.slug}`) || [],
+    paths: allPosts.edges.map(({ node }) => `/topics/${node.slug}`) || [],
     fallback: true,
   }
 }
