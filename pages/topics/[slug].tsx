@@ -15,17 +15,17 @@ import TopicPosts from '../../components/topicPosts'
 import { getAllPostsWithTopic, getAllPostsWithSlug, getPostAndMorePosts, getTopics } from '../../lib/api'
 import { CMS_NAME } from '../../lib/constants'
 
-export default function Post({ post, posts, preview }) {
+export default function Post({ post, allPosts, posts, preview }) {
   const router = useRouter()
   const AllPosts = posts?.edges
 
-  console.log("posts:",AllPosts)
+  console.log("posts:",allPosts)
   const morePosts = AllPosts
-  const allPosts = AllPosts
+  //const allPosts = AllPosts
 
-  if (!router.isFallback && !post?.slug) {
+  /*if (!router.isFallback && !post?.slug) {
     return <ErrorPage statusCode={404} />
-  }
+  }*/
 
   return (
     <Layout preview={preview}>
@@ -35,7 +35,7 @@ export default function Post({ post, posts, preview }) {
           <PostTitle>Loading…</PostTitle>
         ) : (
           <>
-            {allPosts.length > 0 && <TopicPosts posts={allPosts} />}
+
             <SectionSeparator />
             {morePosts.length > 0 && <MoreStories posts={morePosts} />}
           </>
@@ -61,7 +61,7 @@ export const getStaticProps: GetStaticProps = async ({
       preview,
       post: data.post,
       posts:data.posts, 
-      allPosts:allPosts.posts,
+      allPosts:allPosts,
     },
     revalidate: 10,
   }
