@@ -37,7 +37,9 @@ time{
 ul{
   list-style-type: disc;
 }
-
+pre{
+  background: #000 !important;
+}
 
 /* ielm */
 .ielm{
