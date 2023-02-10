@@ -43,10 +43,21 @@ pre{
 
 /* ielm */
 .ielm{
-  background-color: var(--dark4);
+  /*background-color: var(--dark4);
   border-radius: var(--radius);
   padding:10px;
+  margin: 20px 0;*/
+
+  background-color: var(--dark4);
+  border-radius: var(--radius);
+  padding: 10px;
   margin: 20px 0;
+  box-shadow: 3px 3px 5px #333337, -3px -3px 5px #49494d;
+  border: solid #49494d80 1px;
+  background: rgba( 62, 62, 66, 0.25 );
+  backdrop-filter: blur( 4px );
+  /*-webkit-backdrop-filter: blur\( 4px;*/
+
 }
 
 .has-text-align-left {
